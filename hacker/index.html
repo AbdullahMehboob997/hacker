@@ -1,0 +1,735 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hacked By D3F4ultx0</title>
+  <meta name="description" content="A tribute project honoring lives lost and standing in remembrance.">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Icons -->
+  <link rel="stylesheet" href="css/all.min.css">
+
+  <style>
+    :root {
+      --bg-deep: #3a0708;
+      --bg-mid: #7a1517;
+      --accent: #e9b9ad;
+      --accent-dark: #d45d4a;
+      --muted: rgba(255, 255, 255, 0.92);
+      --soft: rgba(255, 220, 220, 0.08);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Rubik', system-ui, -apple-system, sans-serif;
+      background: var(--bg-deep);
+      color: var(--muted);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      cursor: default;
+      animation: bgPulse 20s infinite alternate;
+    }
+
+    @keyframes bgPulse {
+      0% { background-color: #3a0708; }
+      100% { background-color: #450b0c; }
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.04), transparent 15%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.04), transparent 15%),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.28) 100%),
+        linear-gradient(180deg, var(--bg-mid) 0%, var(--bg-deep) 100%);
+      animation: bgShift 25s infinite alternate;
+    }
+
+    @keyframes bgShift {
+      0% { opacity: 0.9; }
+      100% { opacity: 1; }
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: .05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Layout */
+    .container {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 30px;
+      align-items: center;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 30px;
+      position: relative;
+    }
+    
+    .title {
+      font-family: 'Anton', Impact, sans-serif;
+      color: var(--accent);
+      text-transform: none;
+      font-size: min(8.5vw, 90px);
+      margin: 0 0 14px;
+      text-shadow: 
+        0 4px 10px rgba(0, 0, 0, 0.6),
+        0 0 15px rgba(255, 100, 100, 0.4),
+        0 0 25px rgba(255, 50, 50, 0.2);
+      white-space: nowrap;
+      letter-spacing: 1.5px;
+      line-height: 1.1;
+      position: relative;
+      display: inline-block;
+      filter: brightness(1.2);
+      transition: var(--transition);
+    }
+    
+    .title span {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .title span::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -10px;
+      width: 20px;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+      transform: skewX(-25deg);
+      animation: shine 6s infinite;
+      animation-delay: 2s;
+      opacity: 0.7;
+    }
+    
+    @keyframes shine {
+      0%, 100% { left: -30px; }
+      50% { left: calc(100% + 30px); }
+    }
+    
+    .subtitle {
+      color: #ffd9cf;
+      font-weight: 600;
+      margin-bottom: 14px;
+      font-size: clamp(15px, 2.3vw, 18px);
+      letter-spacing: 0.5px;
+      position: relative;
+      padding-left: 18px;
+      animation: fadeIn 1.5s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .subtitle::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 80%;
+      width: 5px;
+      background: linear-gradient(to bottom, var(--accent-dark), rgba(255, 60, 60, 0.7));
+      border-radius: 3px;
+    }
+    
+    .divider {
+      height: 5px;
+      width: 110px;
+      background: linear-gradient(90deg, var(--accent-dark), rgba(255, 60, 60, 0.7));
+      border-radius: 3px;
+      margin: 20px 0;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      animation: expandWidth 1s ease-out 0.5s both;
+    }
+    
+    @keyframes expandWidth {
+      from { width: 0; }
+      to { width: 110px; }
+    }
+    
+    .divider::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+      100% { left: 100%; }
+    }
+    
+    .hero:hover .divider {
+      width: 130px;
+    }
+
+    .tribute-text {
+      font-size: 15px;
+      color: rgba(255, 235, 230, 0.94);
+      max-width: 90%;
+      margin-bottom: 18px;
+      font-weight: 300;
+      position: relative;
+      padding: 14px;
+      background: rgba(0, 0, 0, 0.15);
+      border-left: 3px solid var(--accent-dark);
+      border-radius: 0 4px 4px 0;
+      animation: fadeIn 1.5s ease-out 0.8s both;
+    }
+
+    .flag {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      animation: fadeIn 1.5s ease-out 1s both;
+    }
+    
+    .flag::before {
+      content: "";
+      position: absolute;
+      inset: -7px;
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      opacity: 0.3;
+      z-index: -1;
+    }
+    
+    .flag img {
+      width: 270px;
+      height: 150px;
+      border-radius: 10px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.65);
+      transition: var(--transition);
+      filter: brightness(1.05) contrast(1.1);
+    }
+    
+    .flag:hover img {
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.75);
+    }
+
+    /* Music Disk - Bottom Left */
+    .music-disk {
+      position: fixed;
+      bottom: 95px;
+      left: 130px;
+      z-index: 10;
+      width: 150px;
+      height: 150px;
+      border-radius: 80%;
+      overflow: hidden;
+      animation: diskSpin 10s linear infinite;
+      box-shadow: 
+        0 0 25px rgba(255, 100, 100, 0.5),
+        inset 0 0 30px rgba(0, 0, 0, 0.6);
+      border: 2px solid rgba(255, 200, 200, 0.3);
+      background: #111;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    
+    .music-disk.paused {
+      animation-play-state: paused;
+    }
+    
+    .music-disk::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 40%);
+      z-index: 2;
+    }
+    
+    .music-disk img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      filter: grayscale(0.3) brightness(0.85) contrast(1.05);
+    }
+    
+    .disk-center {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #111;
+      border-radius: 50%;
+      z-index: 3;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 2px solid rgba(255, 200, 200, 0.3);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    .disk-center::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    @keyframes diskSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Decorative corner elements */
+    .corner {
+      position: fixed;
+      width: 150px;
+      height: 150px;
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    .corner-tl {
+      top: 0;
+      left: 0;
+      border-top: 2px solid var(--accent);
+      border-left: 2px solid var(--accent);
+      opacity: 0.2;
+    }
+    
+    .corner-tr {
+      top: 0;
+      right: 0;
+      border-top: 2px solid var(--accent);
+      border-right: 2px solid var(--accent);
+      opacity: 0.2;
+    }
+    
+    .corner-bl {
+      bottom: 0;
+      left: 0;
+      border-bottom: 2px solid var(--accent);
+      border-left: 2px solid var(--accent);
+      opacity: 0.2;
+    }
+    
+    .corner-br {
+      bottom: 0;
+      right: 0;
+      border-bottom: 2px solid var(--accent);
+      border-right: 2px solid var(--accent);
+      opacity: 0.2;
+    }
+
+    /* Glowing orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(110px);
+      z-index: 0;
+      opacity: 0.15;
+      animation: orbFloat 15s infinite ease-in-out;
+    }
+    
+    @keyframes orbFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-20px) scale(1.05); }
+    }
+    
+    .orb-1 {
+      width: 300px;
+      height: 300px;
+      background: var(--accent-dark);
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    
+    .orb-2 {
+      width: 200px;
+      height: 200px;
+      background: var(--accent);
+      bottom: 15%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+
+    /* New subtle elements */
+    .memorial-lines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.03;
+      background-size: 30px 30px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    }
+    
+    .memorial-text {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      color: var(--accent);
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      opacity: 0.7;
+      z-index: 2;
+      padding: 5px 10px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(233, 185, 173, 0.3);
+      border-radius: 3px;
+      animation: fadeInOut 8s infinite alternate;
+    }
+    
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.8; }
+    }
+
+    /* Cursor particles */
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+    
+  
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding: 25px;
+      color: rgba(255, 230, 224, 0.7);
+      font-size: 14px;
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0.7;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .music-disk {
+        width: 90px;
+        height: 90px;
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin: 40px auto;
+      }
+      
+      .flag {
+        margin-top: 20px;
+        order: 0;
+      }
+      
+      .flag img {
+        max-width: 750px;
+      }
+      
+      .music-disk {
+        position: fixed;
+        bottom: 40px;
+        left: 1000px;
+        animation: diskSpin 10s linear infinite;
+      }
+      
+      .corner {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .memorial-text {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        grid-template-rows: auto auto auto;
+      }
+      
+      .hero {
+        order: 1;
+        text-align: center;
+        padding: 20px 10px;
+      }
+      
+      .flag {
+        order: 2;
+      }
+      
+      .subtitle::before {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .container {
+        padding: 20px;
+        margin: 30px auto;
+      }
+      
+      .hero {
+        padding: 20px 10px;
+        text-align: center;
+      }
+      
+      .title {
+        white-space: normal;
+        font-size: min(13vw, 65px);
+      }
+      
+      .subtitle::before {
+        display: none;
+      }
+      
+      .tribute-text {
+        max-width: 100%;
+      }
+      
+      .divider {
+        margin: 20px auto;
+      }
+      
+      .corner {
+        width: 70px;
+        height: 70px;
+      }
+      
+      .orb {
+        display: none;
+      }
+      
+      .music-disk {
+        width: 80px;
+        height: 80px;
+        bottom: 15px;
+        left: 15px;
+      }
+      
+      .flag img {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+  
+  <!-- New elements -->
+  <div class="memorial-lines"></div>
+  <div class="memorial-text">IN MEMORIAM</div>
+  
+  <!-- Decorative corners -->
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+  
+  <!-- Glowing orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  
+  <!-- Cursor particles container -->
+  <div id="particles"></div>
+
+  <main class="container">
+    <section class="hero">
+      <h1 class="title"><span>Hacked By $H@K!#</span></h1>
+      <div class="subtitle">Honouring lives lost — we remember, we resist</div>
+      <div class="divider"></div>
+      <p class="tribute-text">
+       Long Live Resistance, Long Live Palestine. We condemn the loss of innocent lives and stand together in remembrance. What was stolen cannot erase the will to survive, and what was silenced cannot kill the truth. Palestine is our land, our history, our people. Israel is only a proxy of oppression — but no proxy can erase a homeland. Justice will prevail, and Palestine will be free.
+      </p>
+    </section>
+
+    <aside class="flag">
+      <img src="images/giphy.gif" alt="Palestinian Flag">
+    </aside>
+    
+    <!-- Music Disk - Bottom Left -->
+    <div class="music-disk" id="musicDisk">
+      <img src="images/palestine-flag-brush-strokes-vector-illustration_911078-8867.jpg" alt="Palestine Flag Brush">
+      <div class="disk-center"></div>
+    </div>
+  </main>
+
+
+
+  <!-- Audio Element -->
+  <audio id="backgroundAudio" loop="">
+    <source src="media/m_3545kzu7m1.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Audio functionality
+      const audio = document.getElementById('backgroundAudio');
+      const disk = document.getElementById('musicDisk');
+      
+      // Try to autoplay with user interaction
+      function tryAutoplay() {
+        audio.play().then(() => {
+          console.log('Audio playing');
+          disk.classList.remove('paused');
+        }).catch(error => {
+          console.log('Autoplay prevented:', error);
+        });
+      }
+      
+      // Try autoplay on page load
+      tryAutoplay();
+      
+      // Toggle play/pause when clicking the disk
+      disk.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (audio.paused) {
+          audio.play();
+          disk.classList.remove('paused');
+        } else {
+          audio.pause();
+          disk.classList.add('paused');
+        }
+      });
+      
+      // Memorial text animation
+      const memorialText = document.querySelector('.memorial-text');
+      const texts = [
+        "IN MEMORIAM",
+        "WE REMEMBER",
+        "NEVER FORGET",
+        "REST IN POWER",
+        "HONORING LIVES"
+      ];
+      
+      let textIndex = 0;
+      setInterval(() => {
+        textIndex = (textIndex + 1) % texts.length;
+        memorialText.textContent = texts[textIndex];
+      }, 4000);
+      
+      // Cursor particles
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 20;
+      
+      for (let i = 0; i < particleCount; i++) {
+        createParticle();
+      }
+      
+      function createParticle() {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        const size = Math.random() * 5 + 3;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const delay = Math.random() * 15;
+        const duration = Math.random() * 10 + 15;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}vw`;
+        particle.style.top = `${posY}vh`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.animationDuration = `${duration}s`;
+        
+        particlesContainer.appendChild(particle);
+        
+        // Reset particle after animation completes
+        setTimeout(() => {
+          particle.remove();
+          createParticle();
+        }, (delay + duration) * 1000);
+      }
+      
+      // Create particles on mouse move
+      document.addEventListener('mousemove', function(e) {
+        if (Math.random() > 0.95) {
+          createCursorParticle(e.clientX, e.clientY);
+        }
+      });
+      
+      function createCursorParticle(x, y) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        const size = Math.random() * 4 + 2;
+        const duration = Math.random() * 1 + 0.5;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        particle.style.animation = 'none';
+        particle.style.opacity = '0.8';
+        particle.style.transition = `transform ${duration}s ease-out, opacity ${duration}s ease-out`;
+        particle.style.transform = `translate(0, 0)`;
+        particle.style.boxShadow = '0 0 8px rgba(255, 150, 150, 0.7)';
+        
+        particlesContainer.appendChild(particle);
+        
+        // Animate particle
+        setTimeout(() => {
+          particle.style.transform = `translate(${Math.random() * 40 - 20}px, ${Math.random() * 40 - 20}px)`;
+          particle.style.opacity = '0';
+        }, 10);
+        
+        // Remove particle after animation
+        setTimeout(() => {
+          particle.remove();
+        }, duration * 1000);
+      }
+    });
+  </script>
+
+
+</body></html>
